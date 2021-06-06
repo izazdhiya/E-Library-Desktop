@@ -160,7 +160,7 @@ class MyFrame1 ( wx.Frame ):
 		fgSizer13211.SetFlexibleDirection( wx.BOTH )
 		fgSizer13211.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
-		self.borrowLogo = wx.StaticBitmap( self.borrowPanel, wx.ID_ANY, wx.Bitmap( u"../../Pertemuan 9/testqr.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.borrowLogo = wx.StaticBitmap( self.borrowPanel, wx.ID_ANY, wx.Bitmap( u"gambar.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer13211.Add( self.borrowLogo, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 		fgSizer16211 = wx.FlexGridSizer( 3, 2, 0, 0 )
@@ -239,8 +239,9 @@ class MyFrame1 ( wx.Frame ):
 		self.searchBoxHistory.ShowCancelButton( False )
 		fgSizer91.Add( self.searchBoxHistory, 0, wx.TOP, 5 )
 
-		comboBoxHistoryChoices = [ u"Hari Ini", u"Minggu Ini", u"Bulan Ini", u"Tahun Ini" ]
+		comboBoxHistoryChoices = [ u"", u"Hari Ini", u"Bulan Ini", u"Tahun Ini" ]
 		self.comboBoxHistory = wx.ComboBox( self.historyPanel, wx.ID_ANY, u"Filter", wx.DefaultPosition, wx.DefaultSize, comboBoxHistoryChoices, 0 )
+		self.comboBoxHistory.SetSelection( 3 )
 		fgSizer91.Add( self.comboBoxHistory, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
@@ -301,11 +302,13 @@ class MyFrame1 ( wx.Frame ):
 		# Connect Events
 		self.btnTambahBuku.Bind( wx.EVT_BUTTON, self.onBtnTambahBuku )
 		self.searchBox.Bind( wx.EVT_TEXT, self.onSearchBox )
+		self.comboBox.Bind( wx.EVT_COMBOBOX, self.onComboBox )
 		self.bookTable.Bind( wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.sortData )
 		self.bookTable.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.selectRow )
 		self.btnTambahPeminjaman.Bind( wx.EVT_BUTTON, self.onBtnTambahPeminjaman )
 		self.btnSubmit.Bind( wx.EVT_BUTTON, self.onBtnSubmit )
 		self.searchBoxHistory.Bind( wx.EVT_TEXT, self.onSearchBox )
+		self.comboBoxHistory.Bind( wx.EVT_COMBOBOX, self.onComboBoxHistory )
 		self.historyTable.Bind( wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.sortData )
 		self.historyTable.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.selectRow )
 
@@ -320,6 +323,9 @@ class MyFrame1 ( wx.Frame ):
 	def onSearchBox( self, event ):
 		event.Skip()
 
+	def onComboBox( self, event ):
+		event.Skip()
+
 	def sortData( self, event ):
 		event.Skip()
 
@@ -330,6 +336,10 @@ class MyFrame1 ( wx.Frame ):
 		event.Skip()
 
 	def onBtnSubmit( self, event ):
+		event.Skip()
+
+
+	def onComboBoxHistory( self, event ):
 		event.Skip()
 
 
@@ -703,5 +713,124 @@ class BookModal( wx.Dialog ):
 		pass
 
 	def btnSimpanBuku( self, event ):
+		event.Skip()
+
+###########################################################################
+## Class Nota1
+###########################################################################
+
+class Nota1 ( wx.Dialog ):
+
+	def __init__( self, parent, nama, buku, pegawai, tanggalkembali, denda ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Nota Pengembalian", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetBackgroundColour( wx.Colour( 155, 205, 255 ) )
+
+		bSizer6 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText13 = wx.StaticText( self, wx.ID_ANY, u"Nota Pengembalian", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13.Wrap( -1 )
+
+		self.m_staticText13.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Bahnschrift SemiCondensed" ) )
+
+		bSizer6.Add( self.m_staticText13, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		self.m_staticline2 = wx.StaticLine( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+		bSizer6.Add( self.m_staticline2, 0, wx.EXPAND |wx.ALL, 5 )
+
+		fgSizer7 = wx.FlexGridSizer( 5, 2, 0, 0 )
+		fgSizer7.SetFlexibleDirection( wx.BOTH )
+		fgSizer7.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.m_staticText14 = wx.StaticText( self, wx.ID_ANY, u"Nama :", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText14.Wrap( -1 )
+
+		self.m_staticText14.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, wx.EmptyString ) )
+
+		fgSizer7.Add( self.m_staticText14, 0, wx.ALL, 5 )
+
+		self.m_textCtrl9 = wx.TextCtrl( self, wx.ID_ANY, nama, wx.DefaultPosition, wx.Size( 150,-1 ), wx.TE_READONLY )
+		self.m_textCtrl9.SetMinSize( wx.Size( 150,-1 ) )
+		self.m_textCtrl9.SetMaxSize( wx.Size( 150,-1 ) )
+
+		fgSizer7.Add( self.m_textCtrl9, 0, 0, 5 )
+
+		self.m_staticText141 = wx.StaticText( self, wx.ID_ANY, u"Buku :", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText141.Wrap( -1 )
+
+		self.m_staticText141.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, wx.EmptyString ) )
+		self.m_staticText141.SetMaxSize( wx.Size( 269,300269 ) )
+
+		fgSizer7.Add( self.m_staticText141, 0, wx.ALL, 5 )
+
+		self.m_textCtrl91 = wx.TextCtrl( self, wx.ID_ANY, buku, wx.DefaultPosition, wx.Size( 150,-1 ), wx.TE_READONLY )
+		self.m_textCtrl91.SetMinSize( wx.Size( 150,-1 ) )
+		self.m_textCtrl91.SetMaxSize( wx.Size( 150,-1 ) )
+
+		fgSizer7.Add( self.m_textCtrl91, 0, 0, 5 )
+
+		self.m_staticText1411 = wx.StaticText( self, wx.ID_ANY, u"Pegawai :", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1411.Wrap( -1 )
+
+		self.m_staticText1411.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, wx.EmptyString ) )
+		self.m_staticText1411.SetMaxSize( wx.Size( 269,300269 ) )
+
+		fgSizer7.Add( self.m_staticText1411, 0, wx.ALL, 5 )
+
+		self.m_textCtrl92 = wx.TextCtrl( self, wx.ID_ANY, pegawai, wx.DefaultPosition, wx.Size( 150,-1 ), wx.TE_READONLY )
+		self.m_textCtrl92.SetMinSize( wx.Size( 150,-1 ) )
+		self.m_textCtrl92.SetMaxSize( wx.Size( 150,-1 ) )
+
+		fgSizer7.Add( self.m_textCtrl92, 0, wx.ALL, 5 )
+
+		self.m_staticText142 = wx.StaticText( self, wx.ID_ANY, u"Tanggal Kembali :", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText142.Wrap( -1 )
+
+		self.m_staticText142.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, wx.EmptyString ) )
+
+		fgSizer7.Add( self.m_staticText142, 0, wx.ALL, 5 )
+
+		self.m_textCtrl93 = wx.TextCtrl( self, wx.ID_ANY, tanggalkembali, wx.DefaultPosition, wx.Size( 150,-1 ), wx.TE_READONLY )
+		self.m_textCtrl93.SetMinSize( wx.Size( 150,-1 ) )
+		self.m_textCtrl93.SetMaxSize( wx.Size( 150,-1 ) )
+
+		fgSizer7.Add( self.m_textCtrl93, 0, wx.ALL, 5 )
+
+		self.m_staticText143 = wx.StaticText( self, wx.ID_ANY, u"Denda :", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText143.Wrap( -1 )
+
+		self.m_staticText143.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, wx.EmptyString ) )
+
+		fgSizer7.Add( self.m_staticText143, 0, wx.ALL, 5 )
+
+		self.m_textCtrl94 = wx.TextCtrl( self, wx.ID_ANY, denda, wx.DefaultPosition, wx.Size( 150,-1 ), wx.TE_READONLY )
+		self.m_textCtrl94.SetMinSize( wx.Size( 150,-1 ) )
+		self.m_textCtrl94.SetMaxSize( wx.Size( 150,-1 ) )
+
+		fgSizer7.Add( self.m_textCtrl94, 0, wx.ALL, 5 )
+
+
+		bSizer6.Add( fgSizer7, 0, wx.EXPAND, 5 )
+
+		self.btnSelesai = wx.Button( self, wx.ID_ANY, u"Selesai", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.btnSelesai, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		self.SetSizer( bSizer6 )
+		self.Layout()
+		bSizer6.Fit( self )
+
+		self.Centre( wx.BOTH )
+
+		# Connect Events
+		self.btnSelesai.Bind( wx.EVT_BUTTON, self.onBtnSelesai )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, overide them in your derived class
+	def onBtnSelesai( self, event ):
 		event.Skip()
 

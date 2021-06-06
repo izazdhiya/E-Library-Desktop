@@ -160,7 +160,7 @@ class MyFrame1 ( wx.Frame ):
 		fgSizer13211.SetFlexibleDirection( wx.BOTH )
 		fgSizer13211.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
-		self.borrowLogo = wx.StaticBitmap( self.borrowPanel, wx.ID_ANY, wx.Bitmap( u"../../Pertemuan 9/testqr.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.borrowLogo = wx.StaticBitmap( self.borrowPanel, wx.ID_ANY, wx.Bitmap( u"testqr.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer13211.Add( self.borrowLogo, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 		fgSizer16211 = wx.FlexGridSizer( 3, 2, 0, 0 )

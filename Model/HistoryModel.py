@@ -29,14 +29,16 @@ class HistoryModel(BaseModel):
 		# return historyTableData
 
 	def searchByKeyword(self,keyword):
-		historyData = self.historyGetData()
-		historyTableData = []
-		for row in historyData:
-			for value in row:
-				if str(keyword).lower() in str(value).lower():
-					historyTableData += [row]
-					break
-		return historyTableData
+		#historyData = self.historyGetData()
+		#historyTableData = []
+		#for row in historyData:
+		#	for value in row:
+		#		if str(keyword).lower() in str(value).lower():
+		#			historyTableData += [row]
+		#			break
+		#return historyTableData
+		query = f'SELECT pengembalian.id_borrow,books.judul,students.nama,staff.nama,riwayatpeminjaman.tanggal_pinjam,pengembalian.tanggal_kembali,pengembalian.denda FROM pengembalian JOIN riwayatpeminjaman ON pengembalian.id_borrow=riwayatpeminjaman.id_borrow JOIN books ON books.id=riwayatpeminjaman.id_buku JOIN students ON students.id=riwayatpeminjaman.id_students JOIN staff ON staff.id=riwayatpeminjaman.id_staff WHERE pengembalian.tanggal_kembali LIKE "%{keyword}%";'
+		return self.database.fetchall(query)
 
 	def today(self):
 		return datetime.now().date()
@@ -52,3 +54,7 @@ class HistoryModel(BaseModel):
 		# 	return self.database.fetchall(query)[0][0]
 		# except Exception as e:
 		# 	return False
+
+	def createNote(self, keyword):
+		query = f"SELECT s.nama,bk.judul,st.nama,b.tanggal_pinjam FROM students s, books bk,staff st, borrow b WHERE s.id = b.id_students and bk.id = b.id_buku and st.id = b.id_staff and b.id = {keyword}"
+		return self.database.fetchall(query)[0]
